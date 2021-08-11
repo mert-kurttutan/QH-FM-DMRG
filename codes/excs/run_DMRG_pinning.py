@@ -25,4 +25,4 @@ par.lat = DMRG.add_pin_SU2(lat, par.g, par.x0, par.y0, par)
 tar_loc="../temp/"
 
 if __name__ == "__main__":            #make sure it runs only when it is executed
-    DMRG.run_dmrg_FHH_SU2(par, tar_loc)
+    DMRG.run_dmrg_FHH_SU2_conv(par, tar_loc, tar_loc)
