@@ -16,8 +16,9 @@
 
 source /project/theorie/s/Sam.Mardazad/Group/syten_inc.sh
 
-python ./run_DMRG.py $1 $2 $3 $4 $5 $6 $7
+#python ./run_DMRG.py $1 $2 $3 $4 $5 $6 $7
 #python ./convergence_n_arr.py $1 $2 $3 $4 $5 $6 $7
 #python ./convergence_cur_arr.py $1 $2 $3 $4 $5 $6 $7
 #python ./sCorr-func-GS.py $1 $2 $3 $4 $5 $6 $7
 #python ./nCorr-func-GS.py $1 $2 $3 $4 $5 $6 $7
+python ./run_DMRG_pinning.py $1 $2 $3 $4 $5 $6 $7 2. 2. 2.
