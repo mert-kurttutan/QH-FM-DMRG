@@ -14,7 +14,7 @@ par.N = int(float(sys.argv[5]))
 par.S = float(sys. argv[6])
 par.pbc = bool(float(sys.argv[7]))
 par.chis = [100, 100, 200, 200, 400, 400, 400, 800, 800, 800, 800, 1600, 1600, 1600, 2000, 2000, 2000, 4000, 4000, 4000, 4000, 4000, 4000]
-par.lat=ptn.mp.lat.su2u1.genFermiHubbardSpinCharge(par.Lx*par.Ly)
+par.lat=DMRG.FHH_Ham_SU2(par.Ly, par.Lx, par.Nphi, 1.0, par.pbc)  
 
 #tar_loc = "/project/th-scratch/m/Mert.Kurttutan/QH-FM-01/Lx" + str(par.Lx) + "_Ly" + str(par.Ly)
 #tar_loc = "/project/th-scratch/m/Mert.Kurttutan/QH-FM-02/Lx" + str(par.Lx) + "_Ly" + str(par.Ly)

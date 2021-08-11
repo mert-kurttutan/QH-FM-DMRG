@@ -1,5 +1,5 @@
-Lx_arr=(6)
-Ly_arr=(4)
+Lx_arr=(6 8 10 12)
+Ly_arr=(4 5 )
 U_arr=(8)
 
 

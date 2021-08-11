@@ -38,7 +38,8 @@ def run_dmrg_FHH_SU2(par, tar_folder):
     print("Lx"+str(Lx)+"_Ly"+str(Ly)+"_Nphi"+str(Nphi)+"_U"+str(U)+"_N"+str(N)+"_S"+str(S)+"_PBC"+str(pbc))
     print("Generating lattice…")
     ## the lattice to be used
-    lat = FHH_Ham_SU2(Ly, Lx, Nphi, 1.0, pbc)          #tperp=1.0
+    lat = par.lat 
+    #lat=FHH_Ham_SU2(Ly, Lx, Nphi, 1.0, pbc)          #tperp=1.0
 
     print("Generating random state…")
     ## our initial random state, here generated with keyword arguments

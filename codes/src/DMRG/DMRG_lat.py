@@ -65,9 +65,6 @@ def FHH_Ham_SU2(legs, length, Nphi, tperp, PBC=False):
 
 
 
-
-#!/usr/bin/env python3
-
 import pyten as ptn
 import numpy as np
 
@@ -129,3 +126,20 @@ def FHH_Ham_U1(legs, length, Nphi, tperp, PBC=False):
     #                     +" at alpha="+str(alpha)+" and rung hopping t_perp="+str(tperp))
 
     return lat
+
+
+def add_pin_SU2(lat, g, x, y, par):
+    '''
+    Adds a pinning potential term to a given SU2-U1 fermionic lattice
+    '''
+    Lx=par.Lx; Ly=par.Ly
+    
+    
+    i = x*(Ly) + y          #both x,y starts from 0
+    h_pin = g*lat.get("n", i)
+    
+    lat.add("H_pin", "Pinning potential - for localized qp", h_pin)
+    
+    return lat
+    
+    
