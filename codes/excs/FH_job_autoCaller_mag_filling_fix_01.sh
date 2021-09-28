@@ -1,8 +1,8 @@
 Lx_arr=(6 8 10 12)
 Ly_arr=(4 5 )
 U_arr=(8)
-
-
+__dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+echo ${__dir}
 for Lx in "${Lx_arr[@]}"; do
     for Ly in "${Ly_arr[@]}"; do
         Nend_t=$(echo "scale=0; $Lx*$Ly/2" | bc -l)        #quarter-filling
@@ -20,7 +20,7 @@ for Lx in "${Lx_arr[@]}"; do
             for S in "${S_arr[@]}"; do                 #all the spin sectors
                 for U in "${U_arr[@]}"; do
                     nPhi=$(echo "scale=8; $n" | bc -l)      #magnetic filling=1
-                    source ./FHH-SU2-job_01.sh $Lx $Ly $nPhi $U $n $S 1.0
+                    #source ${__dir}/FHH-SU2-job_01.sh $Lx $Ly $nPhi $U $n $S 1.0
                     #echo $Lx, $Ly, $S, $n, $U, $nPhi
                 done
             done

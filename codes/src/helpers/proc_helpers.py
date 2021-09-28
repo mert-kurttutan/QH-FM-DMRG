@@ -21,9 +21,11 @@ def params(Lx=6,
            sweep = [38, 2],
            chis = [],
            source="",            #in which correpoding MPS file is stored
-           lat=ptn.mp.lat.nil.genBosonLattice(4,2.)  #simple lattice for initialization purposes
+           lat=ptn.mp.lat.nil.genBosonLattice(4,2.),  #simple lattice for initialization purposes
+           pin=False,
+           g=0
           ):
-    return SimpleNamespace(Lx=Lx, Ly=Ly, Nphi=Nphi, U=U, N=N, S=S, Sz=Sz, pbc=pbc, bond=bond, ind=ind, sweep=sweep, chis=chis, source=source, lat=lat)
+    return SimpleNamespace(Lx=Lx, Ly=Ly, Nphi=Nphi, U=U, N=N, S=S, Sz=Sz, pbc=pbc, bond=bond, ind=ind, sweep=sweep, chis=chis, source=source, lat=lat, pin=pin, g=g)
 
 def mps_load(params):
     '''
@@ -47,18 +49,20 @@ def mps_nm(par):
     
     if par.S is not None and par.Sz is None:
         mps_str = "Lx"+str(par.Lx)+"_Ly"+str(par.Ly)+"_Nphi"+str(par.Nphi)+"_U"+str(par.U)+"_N"+str(par.N)+"_S"+str(par.S)+"_PBC"+\
-                    str(par.pbc)+str(par.bond)+ "_"+str(par.ind) +".mps"
+                    str(par.pbc)+str(par.bond)+ "_"+str(par.ind)
         
     elif par.S is None and par.Sz is not None:
         mps_str = "Lx"+str(par.Lx)+"_Ly"+str(par.Ly)+"_Nphi"+str(par.Nphi)+"_U"+str(par.U)+"_N"+str(par.N)+"_Sz"+str(par.Sz)+"_PBC"+\
-                    str(par.pbc)+str(par.bond)+ "_"+str(par.ind) +".mps"
+                    str(par.pbc)+str(par.bond)+ "_"+str(par.ind)
         
     elif par.S is None and par.Sz is None:
         raise ValueError("None of Spin numbers is initiated, cannot decide whether SU2 or U1")
     else:
         raise ValueError("Both Spin numbers is initiated, cannot decide whether SU2 or U1")
-        
-    return mps_str
+    if par.pin:
+        mps_str += "_g"+str(par.g) 
+    
+    return mps_str + ".mps"
 
 
 
@@ -159,8 +163,8 @@ def nCorr_arr_save(mps_obj, tar_loc, params):
     
     #density-density correlation
     y0=0
-    x0_l = [0, Lx-1, Lx//2]
-    nCorr_arr = np.zeros((3,Lx,2))    #first index: 0, Lx, or center, #second index: correlaton functoin
+    x0_l = [0, Lx-1, Lx//2, Lx//2+1, Lx//2+2, Lx//2+3, Lx//2+4]
+    nCorr_arr = np.zeros((len(x0_l),Lx,2))    #first index: 0, Lx, or center, #second index: correlaton functoin
                                       #third index: value of correlation function and distance, to be used for plots
 
     for k in range(nCorr_arr.shape[0]):
@@ -197,8 +201,8 @@ def sCorr_arr_save(mps_obj, tar_loc, params):
     
     #spin-spin correlation functions at y=0
     y0=0
-    x0_l = [0, Lx-1, Lx//2]
-    sCorr_arr = np.zeros((3,Lx,2))    #first index: 0, Lx, or center, #second index: correlaton functoin
+    x0_l = [0, Lx-1, Lx//2, Lx//2+1, Lx//2+2, Lx//2+3, Lx//2+4]
+    sCorr_arr = np.zeros((len(x0_l),Lx,2))    #first index: 0, Lx, or center, #second index: correlaton functoin
                                       #third index: value of correlation function and distance, to be used for plots
 
     for k in range(sCorr_arr.shape[0]):
@@ -220,7 +224,7 @@ def sCorr_arr_save(mps_obj, tar_loc, params):
     return full_name
 
 
-def load_arr_high_bond(p1, tar_loc, chis, c):
+def load_arr_high_bond(p1, tar_loc, chis, c, num_locs=3):
     '''
     returns arrays of physical quantities with highest bond dimension from a given folder
     c: choice of physical quantity, see the dictionary below
@@ -228,7 +232,7 @@ def load_arr_high_bond(p1, tar_loc, chis, c):
     tar_loc: target folder to which the files to be stored
     '''
     
-    funcs = {"n": ["_nArr.txt", p1.Lx, p1.Ly] , "nn": ["_nCorr_Arr.txt", 3, p1.Lx, 2], "ss": ["_sCorr_Arr.txt", 3, p1.Lx, 2]}
+    funcs = {"n": ["_nArr.txt", p1.Lx, p1.Ly] , "nn": ["_nCorr_Arr.txt", num_locs, p1.Lx, 2], "ss": ["_sCorr_Arr.txt", num_locs, p1.Lx, 2]}
     
     choose = funcs[c]
     for i in range(1, len(chis)):

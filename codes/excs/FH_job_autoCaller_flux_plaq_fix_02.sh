@@ -1,7 +1,7 @@
 Lx_arr=(12 6 8 16)
 Ly_arr=(4 5)
 U_arr=(8)
-
+__dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 for Lx in "${Lx_arr[@]}"; do
     for Ly in "${Ly_arr[@]}"; do
@@ -20,7 +20,7 @@ for Lx in "${Lx_arr[@]}"; do
             for S in "${S_arr[@]}"; do                 #all the spin sectors
                 for U in "${U_arr[@]}"; do
                         nPhi=$(echo "scale=8; ($Lx-1)*$Ly*0.2" | bc -l)      #flux per plaquette=0.2
-                    source ./FHH-SU2-job_01.sh $Lx $Ly $nPhi $U $n $S 1.0
+                    source ${__dir}/FHH-SU2-job_01.sh $Lx $Ly $nPhi $U $n $S 1.0
                     #echo $Lx, $Ly, $S, $n, $U, $nPhi
                 done
             done

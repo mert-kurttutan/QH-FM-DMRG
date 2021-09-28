@@ -64,10 +64,6 @@ def FHH_Ham_SU2(legs, length, Nphi, tperp, PBC=False):
     return lat
 
 
-
-import pyten as ptn
-import numpy as np
-
 def FHH_Ham_U1(legs, length, Nphi, tperp, PBC=False):
     '''
     
@@ -133,8 +129,7 @@ def add_pin_SU2(lat, g, x, y, par):
     Adds a pinning potential term to a given SU2-U1 fermionic lattice
     '''
     Lx=par.Lx; Ly=par.Ly
-    
-    
+
     i = x*(Ly) + y          #both x,y starts from 0
     h_pin = g*lat.get("n", i)
     

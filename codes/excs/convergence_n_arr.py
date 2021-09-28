@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
 import pyten as ptn
 import sys,os
-sys.path.append(os.path.abspath(os.path.dirname("../src"))) 
-from src import helpers, utils, DMRG 
+pp=os.path.dirname(os.path.abspath(__file__))
+pp = os.path.dirname(pp)
+sys.path.append(pp)          #used this, be careful
+from src import helpers, utils, DMRG   
+
 
 par=helpers.params()
 
@@ -20,7 +23,7 @@ par.lat=ptn.mp.lat.su2u1.genFermiHubbardSpinCharge(par.Lx*par.Ly)
 #tar_loc = "../data/dat-files-01-expc-arr/n-arr/"
 #tar_loc = "/project/th-scratch/m/Mert.Kurttutan/QH-FM-02/convergence/n-arr/"
 #tar_loc = "../data/dat-files-02-expc-arr/n-arr/"
-tar_loc="../temp/"
+tar_loc= pp+"/temp_trial/"
 src_folder = "/project/th-scratch/m/Mert.Kurttutan/QH-FM-01/"
 
 if __name__ == "__main__":            #make sure it runs only when it is executed
