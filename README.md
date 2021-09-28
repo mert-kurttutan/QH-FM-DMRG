@@ -1,7 +1,7 @@
 QH_FM_01
 ==============================
 
-A research project to Analyze Ferromagnetism in FHH model using DMRG
+A research project to analyze Quantum Hall Ferromagnetism in FHH model using DMRG
 
 Project Organization
 ------------
