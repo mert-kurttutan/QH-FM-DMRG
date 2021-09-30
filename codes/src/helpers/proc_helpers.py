@@ -65,6 +65,42 @@ def mps_nm(par):
     return mps_str + ".mps"
 
 
+def name_to_S(name):
+    '''
+    name:string representing the name of mps file of which spin value to be returned
+    returns: the total spin number of the mps file
+    '''
+    idx = name.find("_S")
+    rest = name[idx+2:]
+    idx2 = rest.find("_")
+    S = float(rest[:idx2])
+
+    return S
+
+def name_to_Nphi(name):
+    '''
+    name:string representing the name of mps file of which spin value to be returned
+    returns: the total spin number of the mps file
+    '''
+    idx = name.find("_Nphi")
+    rest = name[idx+5:]
+    idx2 = rest.find("_")
+    Nphi = float(rest[:idx2])
+
+    return Nphi
+
+def name_to_N(name):
+    '''
+    name:string representing the name of mps file of which spin value to be returned
+    returns: the total spin number of the mps file
+    '''
+    idx = name.rfind("_N")
+    rest = name[idx+2:]
+    idx2 = rest.find("_")
+    N = float(rest[:idx2])
+
+    return N
+
 
 def n_arr_save(mps_obj, tar_loc, params):
     '''

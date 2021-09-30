@@ -1,1 +1,1 @@
-from .par_utils import SimpleNamespace
+from .par_utils import SimpleNamespace, getListOfFiles, read_last_line

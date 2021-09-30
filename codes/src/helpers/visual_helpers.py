@@ -1,7 +1,9 @@
 import pyten as ptn
 import numpy as np
-import sys, csv
+import sys, csv, os
 from tabulate import tabulate
+from .proc_helpers import name_to_S, name_to_N, name_to_Nphi
+from ..utils import getListOfFiles, read_last_line
 
 def print_DMRG_table(params):
     '''
@@ -31,3 +33,37 @@ def print_DMRG_table(params):
    
 
     return content[:, num_list]
+
+
+def load_energies(params, tar_loc):
+    '''
+    Lx: The length of the system along x-direction
+    Ly: The length in y-direction
+    tar_loc: where to look for the .dat files
+
+    returns: an array of energy values for each particle filling, magnetic filling and spin polarization
+    This is to be used when plottin phase diagram
+    '''
+
+    fileList = getListOfFiles(tar_loc)
+    energy_list = []
+    energy=0
+    name = "Lx" + str(params.Lx) + "_Ly" + str(params.Ly)
+    for file in fileList:
+        if os.path.basename(file)[:len(name)] == name and file[-3:] == "dat":
+            last_line_list = read_last_line(file)
+            idx = 10 if params.pin else 9
+            energy = last_line_list[idx]
+            dnmr = (params.Lx-1)*params.Ly
+            energy = float(energy)
+            S = name_to_S(file); N = name_to_N(file); Nphi = name_to_Nphi(file)
+            energy_list.append([energy/dnmr, Nphi, N/dnmr, S])
+            
+    return energy_list
+
+    #Lx16_Ly5_Nphi34.0_U8.0_N34_S0.0_variance_FHH_SU2.dat
+
+def phase_Diag(Lx, Ly):
+
+
+    return
